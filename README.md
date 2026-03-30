@@ -1,8 +1,7 @@
 # Audio XAI Fragility
 
-![PyPI version](https://img.shields.io/pypi/v/Audio-XAI-Fragility.svg)
+[![PyPI version](https://badge.fury.io/py/Audio-XAI-Fragility.svg)](https://badge.fury.io/py/Audio-XAI-Fragility)
 
-A project about Audio models and it's fragility
 
 * [GitHub](https://github.com/cncPomper/Audio-XAI-Fragility/) | [PyPI](https://pypi.org/project/Audio-XAI-Fragility/) | [Documentation](https://cncPomper.github.io/Audio-XAI-Fragility/)
 * Created by [Piotr Kitłowski](https://github.com/cncPomper) | GitHub [@cncPomper](https://github.com/cncPomper) | PyPI [@pkitlo](https://pypi.org/user/pkitlo/)
