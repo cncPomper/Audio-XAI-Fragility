@@ -27,7 +27,7 @@ dependencies = [
   "torchvision>=0.26.0",
   "pre-commit>=4.5.1",
 ]
-requires-python = ">= 3.12"
+requires-python = ">= 3.10"
 
 [dependency-groups]
 dev = [
@@ -103,3 +103,11 @@ testpaths = ["tests"]
 [tool.uv]
 package = true
 default-groups = ["dev"]
+
+[tool.bumpversion]
+current_version = "0.0.2"
+commit = true
+tag = true
+allow_shell_hooks = true
+pre_commit_hooks = ["uv run --python=3.10 ruff check .", "uv run --python=3.10 pytest -q"]
+post_commit_hooks = ["git push", "git push --tags"]
