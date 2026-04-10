@@ -1,21 +1,31 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "audio_xai_fragility"
-version = "0.0.1"
-description = "A short description of the project."
-authors = [
-  { name = "Piotr" },
-]
-license = { file = "LICENSE" }
+version = "0.0.5"
+description = "A project about Audio models and it's fragility"
 readme = "README.md"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License"
+authors = [
+  {name = "Piotr Kitłowski", email = "piotr.kitlowski@gmail.com"}
 ]
+maintainers = [
+  {name = "Piotr Kitłowski", email = "piotr.kitlowski@gmail.com"}
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Typing :: Typed",
+]
+license = {text = "MIT"}
 dependencies = [
+    "pre-commit",
     "ipython",
     "jupyterlab",
     "loguru",
@@ -27,22 +37,90 @@ dependencies = [
     "pip",
     "pytest",
     "python-dotenv",
-    "ruff",
     "scikit-learn",
     "tqdm",
     "typer",
+    "rich",
+    "tensorboard",
+    "torch",
+    "torchvision",
+    "torchaudio",
 ]
 requires-python = ">=3.10"
 
+[dependency-groups]
+dev = [
+    { include-group = "lint" },
+    { include-group = "test" },
+    { include-group = "typecheck" },
+]
+lint = [
+    "ruff",
+]
+test = [
+    "coverage",
+    "pytest",
+]
+typecheck = [
+    "ty",
+]
+docs = [
+    "zensical",
+    "mkdocstrings-python",
+]
+
+[project.urls]
+bugs = "https://github.com/cncPomper/Audio-XAI-Fragility/issues"
+changelog = "https://github.com/cncPomper/Audio-XAI-Fragility/releases"
+documentation = "https://cncPomper.github.io/Audio-XAI-Fragility/"
+homepage = "https://github.com/cncPomper/Audio-XAI-Fragility"
+
+[project.scripts]
+audio_xai_fragility = "audio_xai_fragility.cli:app"
+
+[tool.ty]
+# All rules are enabled as "error" by default; no need to specify unless overriding.
+# Example override: relax a rule for the entire project (uncomment if needed).
+# rules.TY015 = "warn"  # For invalid-argument-type, warn instead of error.
 
 [tool.ruff]
-line-length = 99
-src = ["audio_xai_fragility"]
-include = ["pyproject.toml", "audio_xai_fragility/**/*.py"]
+line-length = 120
+# src = ["audio_xai_fragility"]
+# include = ["pyproject.toml", "audio_xai_fragility/**/*.py"]
 
 [tool.ruff.lint]
-extend-select = ["I"]  # Add import sorting
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
 
-[tool.ruff.lint.isort]
-known-first-party = ["audio_xai_fragility"]
-force-sort-within-sections = true
+[tool.coverage.run]
+branch = true
+parallel = true
+source = ["src/", "tests/"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 50
+exclude_also = [
+    "if TYPE_CHECKING:",
+    "if typing.TYPE_CHECKING:",
+    "@overload",
+    "@typing.overload",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+    "raise NotImplementedError",
+    "\\.\\.\\.",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.uv]
+package = true
+default-groups = ["dev"]
