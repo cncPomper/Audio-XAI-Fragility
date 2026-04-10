@@ -101,7 +101,7 @@ select = [
 [tool.coverage.run]
 branch = true
 parallel = true
-source = ["src/", "tests/"]
+source = ["audio_xai_fragility/", "tests/"]
 
 [tool.coverage.report]
 show_missing = true
